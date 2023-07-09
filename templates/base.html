@@ -7,7 +7,7 @@
     <style>.jumbotron{
         padding: 20px;
         margin-bottom: 20px;
-        background-color: aqua;
+        background-color: gray;
 
 
     }
@@ -19,9 +19,11 @@
     {% include 'inc/navbar.html' %}
 
     <div class="jumbotron">
+        {% include 'inc/messages.html' %}
         {% block content %}
         {% endblock %}
     </div>
+
 
 
 </body>
