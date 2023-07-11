@@ -17,7 +17,7 @@ class UserRegisterForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        user = User.objects.filter(username=username)
+        user = User.objects.filter(username=username).exists()
         if user:
             raise ValidationError('this username already exists')
         return username
@@ -32,5 +32,5 @@ class UserRegisterForm(forms.Form):
 
 
 class UserLoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'inter your username', 'class': 'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'inter your username or email', 'class': 'form-control'}))
     password = forms.CharField(label='password', widget=forms.PasswordInput(attrs={'placeholder': 'inter your password', 'class': 'form-control'}))
