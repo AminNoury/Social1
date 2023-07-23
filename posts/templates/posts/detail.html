@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h3>{{ post.user.username }}   {{ post.updated|date:"Y-M-d" }}</h3>
+
+    <p>{{ post.body }}</p>
+
+    <a href="{% url 'accounts:user_profile' post.user.id %}" class="btn btn-info" type="submit" >Back To Profile<a>
+
+{% endblock %}

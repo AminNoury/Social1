@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 
 class UserRegisterForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'inter your username', 'class': 'form-control'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'نام کاربری را وارد کنید', 'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'inter your email', 'class': 'form-control'}))
     password1 = forms.CharField(label='password', widget=forms.PasswordInput(attrs={'placeholder': 'inter your password', 'class': 'form-control'}))
     password2 = forms.CharField(label='confirm password', widget=forms.PasswordInput(attrs={'placeholder': 'inter your password again', 'class': 'form-control'}))

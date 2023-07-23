@@ -2,8 +2,14 @@
 
 
 {% block content %}
+        <div class="card">
+        {% for post in posts %}
+            <a href="{{ post.get_absolute_url }}" class="card-body">
+                <p>{{ post.body|truncatewords:4 }}</p>
+            </a>
+        {% endfor %}
+        </div>
 
-    <h2>Welcome To My Site</h2>
 
 {% endblock %}
 
