@@ -20,7 +20,11 @@
 
 
 {% block content %}
+
     <h3><p class="text-center">{{ user.username }}</p></h3>
+    {% if request.user.id == user.id %}
+        <a href="{% url 'posts:post_create' %}" class="btn btn-primary">Create</a>
+    {% endif %}
         <div class="card">
 
          {% for post in posts %}

@@ -1,7 +1,8 @@
 from django import forms
 from .models import Post
 
-class PostUpdateForm(forms.ModelForm):
+
+class PostCreateUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Post
