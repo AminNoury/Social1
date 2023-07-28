@@ -35,6 +35,7 @@ class UserLoginView(View):
     def setup(self, request, *args, **kwargs):
         self.next = request.GET.get('next')
         super().setup(request, *args, **kwargs)
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('home:home')
