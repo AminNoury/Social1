@@ -5,13 +5,27 @@
     {% if request.user.id == post.user.id %}
         <a href="{% url 'posts:post_delete' post.id %}" class="btn btn-danger">Delete</a>
         <a href="{% url 'posts:post_update' post.id %}" class="btn btn-info">Update</a>
-
-
     {% endif %}
-
-
     <p><a href="{% url 'accounts:user_profile' post.user.id %}">{{ post.user.username }}</a>-{{ post.updated|date:"Y-M-d" }}</p>
-
         <p>{{ post.body }}</p>
+    <hr>
+    {% if request.user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Send">
+        </form>
+    {% else %}
+        <p class="alert alert-danger">You cant comment</p>
+    {% endif %}<hr>
+    {% for comment in comments %}
+        <div class="card bg-dark text-white">
+            <p class="card-header"> {{ comment.user }}-{{ comment.created| timesince }}</p>
+            <p class="card-body">{{ comment.body }}</p>
+        </div>
+    {% empty %}
+            <p>no comments yet!</p>
+
+    {% endfor %}
 
 {% endblock %}
