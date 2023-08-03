@@ -9,3 +9,4 @@ class Relation(models.Model):
 
     def __str__(self):
         return f'{self.from_user} Following {self.to_user}'
+

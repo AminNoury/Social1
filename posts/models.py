@@ -18,6 +18,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('posts:post_detail', args=(self.id, self.slug))
 
+    def likes_count(self):
+        return self.pvotes.count()
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ucomments')
@@ -29,3 +32,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user}-{self.body[:30]}'
+
+
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uvotes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name= 'pvotes')
+
+    def __str__(self):
+        return f'{self.user} Liked {self.post.slug}'

@@ -10,6 +10,7 @@
         <p>{{ post.body }}</p>
     <hr>
     {% if request.user.is_authenticated %}
+        <a href="{% url 'posts:post_like' post.id %}" class="btn btn-primary col-md-2">Like {{ post.likes_count }}</a>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -17,15 +18,36 @@
         </form>
     {% else %}
         <p class="alert alert-danger">You cant comment</p>
-    {% endif %}<hr>
+    {% endif %}<hr/><br>
     {% for comment in comments %}
         <div class="card bg-dark text-white">
             <p class="card-header"> {{ comment.user }}-{{ comment.created| timesince }}</p>
             <p class="card-body">{{ comment.body }}</p>
-        </div>
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'posts:add_reply' post.id comment.id %}" method="post" style="display:none;">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Send">
+                </form>
+            {% endif %}
+            {% with replies=comment.rcomments.all %}
+                {% for reply in replies %}
+                    <p class="bg-primary p-3 m-2">{{ reply.user }}<br/>{{ reply.body }}</p>
+                {% endfor %}
+            {% endwith %}
+        </div><br/>
     {% empty %}
-            <p>no comments yet!</p>
 
-    {% endfor %}
 
+   {% endfor %}
+        {% for comment in comments %}
+            <div class="card bg-dark text-white">
+                <p class="card-header">{{ comment.user }} - {{ comment.created|timesince }}</p>
+                <p class="card-body">{{ comment.body }}</p>
+
+            </div><br/>
+        {% empty %}
+            <p> No comment yet</p>
+
+        {% endfor %}
 {% endblock %}

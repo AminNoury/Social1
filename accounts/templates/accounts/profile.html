@@ -8,11 +8,11 @@
     {% endif %}
         <div class="card">
         {% if request.user.id != user.id and not is_following %}
-            <a class="btn btn-info" href="{% url 'accounts:user_follow' user.id %}">Follow</a>
-        {% elif request.user.id != user.id and is_following %}
-            <a class="btn btn-info" href="{% url 'accounts:user_unfollow' user.id %}">Unfollow</a>
-
-    {% endif %}
+            <a class="btn btn-primary" href="{% url 'accounts:user_follow' user.id %}">Follow</a>
+        {% endif %}
+        {% if request.user.id != user.id and is_following %}
+            <a class="btn btn-primary" href="{% url 'accounts:user_unfollow' user.id %}">UnFollow</a>
+        {% endif %}
 
          {% for post in posts %}
              <a href="{{ post.get_absolute_url }}" class="card-body">

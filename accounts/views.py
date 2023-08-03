@@ -34,7 +34,7 @@ class UserLoginView(View):
 
     def setup(self, request, *args, **kwargs):
         self.next = request.GET.get('next')
-        super().setup(request, *args, **kwargs)
+        return super().setup(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -108,11 +108,15 @@ class UserFollowView(LoginRequiredMixin, View):
 class UserUnfollowView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         user = User.objects.get(id=user_id)
-        relation = Relation.objects.fillter(from_user=request.user, to_user=user)
-        if relation.exixst():
+        relation = Relation.objects.filter(from_user=request.user, to_user=user)
+        if relation.exists():
             relation.delete()
             messages.success(request, 'you unfollowed this user', 'success')
         else:
             messages.error(request, 'you are already unfollowed this user', 'danger')
         return redirect('accounts:user_profile', user.id)
+
+
+
+
 
