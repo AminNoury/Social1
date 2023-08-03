@@ -20,8 +20,12 @@ class PostDetailView(View):
 
     def get(self, request, *args, **kwargs):
         comments = self.post_instance.pcomments.filter(is_reply=False)
+        can_like = False
+        if request.user.is_authenticated and self.post_instance.user_can_like(user=request.user):
+            can_like = True
         return render(request, 'posts/detail.html', {'post': self.post_instance, 'comments': comments,
-                                                    'form': self.form_class, 'form_reply': self.form_class_reply})
+                                                    'form': self.form_class, 'form_reply': self.form_class_reply,
+                                                     'can_like': can_like})
 
     @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
@@ -123,3 +127,6 @@ class PostLikeView(LoginRequiredMixin, View):
             Vote.objects.create(post=post, user=request.user)
             messages.success(request, 'you liked this post', 'success')
         return redirect('posts:post_detail', post.id, post.slug)
+
+
+
