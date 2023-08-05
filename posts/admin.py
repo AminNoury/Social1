@@ -3,7 +3,7 @@ from .models import Post, Comment, Vote
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'slug', 'body', 'created', 'updated']
+    list_display = ['id', 'title', 'user', 'slug', 'body', 'created', 'updated']
     search_fields = ['slug', 'body']
     list_filter = ['created']
     prepopulated_fields = {'slug': ['body']}
