@@ -11,6 +11,6 @@ class Relation(models.Model):
         return f'{self.from_user} Following {self.to_user}'
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.PositiveIntegerField(default=0)
     bio = models.TextField(null=True, blank=True)
