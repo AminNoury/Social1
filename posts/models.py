@@ -5,6 +5,7 @@ from django.urls import reverse
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     body = models.TextField()
+    title = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
